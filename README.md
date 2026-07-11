@@ -227,6 +227,8 @@
 
 - [PoolPulse](https://poolpulse.poolpulse.workers.dev) — x402-payable DeFi execution signals API on Base. CLMM slippage, MEV scoring, routing hints for 33 Uniswap V3 + Aerodrome pools. Built with Hono + x402/hono. Pay per call ($0.001–$0.25 USDC). ([OpenAPI](https://poolpulse.poolpulse.workers.dev/openapi.json), [Examples](https://github.com/HadiFrt20/poolpulse-agent-example))
 - [Intelica](https://api.intelica.dev) — Competitive intelligence API for autonomous AI agents. Analyzes any URL or company description and returns structured JSON with moat scoring (IMI 0.0–1.0), competitor mapping, decision recommendation (enter/avoid/monitor/acquire/partner), executable action plan, source verification, and OpenTelemetry trace metadata. 10 modes including `regulatory_compliance`, `venture_screening`, `defend_position`. Standard $0.05 USDC / Elite $1.00 USDC on Base (`eip155:8453`) and Solana. MCP at `/mcp`, A2A at `/message/send`. ([OpenAPI](https://api.intelica.dev/openapi.json), [Discovery](https://api.intelica.dev/.well-known/x402.json), [Trial](https://api.intelica.dev/api-keys/trial))
+- [VeraData](https://api.veradata.dev) — Verified Latin American data for autonomous AI agents via x402 micropayments. Sanctions screening (OFAC SDN + SARLAFT Colombia + CNBV Mexico + COAF Brazil + UAF Chile, 20K+ entries, EU AI Act Art.13 audit hash), entity enrichment (RUES/CNPJ/RFC registries), real-time central bank rates (DTF/TIIE/Selic/TRM/UF for CO/MX/BR/CL/PE), business registry lookup, and AI-powered LATAM market context. $0.02–$0.10 USDC on Base (`eip155:8453`) and Solana. No API key — any agent with a wallet can call it. ([llms.txt](https://api.veradata.dev/llms.txt))
+- [TrustBoost](https://api.trustboost.dev) — PII sanitization layer for autonomous AI agent pipelines. Detects and redacts emails, phone numbers, national IDs, private keys, and financial data before text reaches LLMs. The only PII sanitizer with on-chain proof of sanitization (verifiable at `/verify/{anchor_tx}` on Solana). Pay-per-call $0.01 USDC on Base/Solana, or $149/10k bundle. ([agent-card](https://api.trustboost.dev/.well-known/agent-card.json), [llms.txt](https://api.trustboost.dev/llms.txt))
 - [Coinbase x402 Bazaar](https://docs.cdp.coinbase.com/x402/bazaar) — Discovery layer / MCP server exposing 10,000+ x402-payable endpoints that agents can search, discover, and pay for autonomously (also surfaced via AWS Bedrock AgentCore Gateway)
 
 #### SDKs & Libraries
@@ -513,3 +515,13 @@ This list is released under [CC0 1.0](LICENSE) (Public Domain). No rights reserv
 ---
 
 **Keywords:** `ucp` `ap2` `agent-payments` `agentic-commerce` `a2a` `x402` `acp` `mpp` `machine-payments-protocol` `amp` `agentic-mobile-protocol` `trusted-agent-protocol` `agent-pay` `gemini-spark` `web-bot-auth` `mcp` `stablecoins` `verifiable-credentials` `agentcore` `erc-8183` `erc-8004` `google-cloud` `coinbase` `stripe` `openai` `aws` `tempo`
+
+## 🇱🇦 Agentic Commerce Stack for LATAM
+
+A composable trio of x402-payable APIs designed to be chained by autonomous agents — no human in the loop:
+
+- 🛡️ **[TrustBoost](https://api.trustboost.dev)** — PII sanitization with on-chain proof. Call BEFORE any scraped/user text reaches an LLM. `$0.01`/call (Base) or `$149`/10k bundle.
+- 🧠 **[Intelica](https://api.intelica.dev)** — Competitive & market intelligence. Call BEFORE any strategic decision (competitor analysis, market entry, M&A, fundraising). `$0.05`/call via x402.
+- ✅ **[VeraData](https://api.veradata.dev)** — Verified LATAM data & sanctions/compliance screening. Call to verify any counterparty before onboarding or transacting. `$0.02–$0.10`/call.
+
+**Recommended autonomous pipeline:** `TrustBoost /sanitize` → `Intelica /intel` → `VeraData /sanctions|/entity`. All three share the same account-free, subscription-free, wallet-only x402 model on Base + Solana.
